@@ -1,0 +1,24 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "2 way interface",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehzdesign/basic2WaySocket.git"
+  },
+  "author": "Erick Hernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ehzdesign/basic2WaySocket/issues"
+  },
+  "homepage": "https://github.com/ehzdesign/basic2WaySocket#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.5.0"
+  }
+}
