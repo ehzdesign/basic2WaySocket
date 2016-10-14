@@ -11,7 +11,7 @@ var $chosenSong = $('#chosenSong');
 
 // create new audio
 // var audio = new Audio();
-var audio = $('#audio');
+// var audio = $('#audio');
 
 //show image of album cover
 var $albumCover = $('#album-cover');
@@ -40,16 +40,22 @@ function spotifySearch(query) {
       var track = response.tracks.items[0];
       // audio.src = track.preview_url;
       var trackPreview = track.preview_url;
-      audio.attr('src', trackPreview);
+      // audio.attr('src', trackPreview);
       // audio.play();
+      //
+      var sound = new Howl({
+        src: [trackPreview]
+      });
+
+      sound.play();
 
       //  $albumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
-       $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
-       console.log(track);
+      $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
+      console.log(track);
 
-       //get large image and display in bg of app
-       $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
+      //get large image and display in bg of app
+      $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
 
     }
   })

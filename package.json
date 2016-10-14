@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ehzdesign/basic2WaySocket#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "howler": "^2.0.0",
     "socket.io": "^1.5.0"
   }
 }
