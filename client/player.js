@@ -10,7 +10,7 @@ var $bgAlbumCover = $('.bg-album-cover');
 var $chosenSong = $('#chosenSong');
 
 // create new audio
-// var audio = new Audio();
+var audio = new Audio();
 // var audio = $('#audio');
 
 //show image of album cover
@@ -38,18 +38,25 @@ function spotifySearch(query) {
     },
     success: function(response){
       var track = response.tracks.items[0];
-      // audio.src = track.preview_url;
+      audio.src = track.preview_url;
       var trackPreview = track.preview_url;
       // audio.attr('src', trackPreview);
-      // audio.play();
+      audio.play();
       //
-      var sound = new Howl({
-        src: [trackPreview]
-      });
+      //
 
-      Howler.mobileAutoEnable = true;
+      console.log(trackPreview);
 
-      sound.play();
+      // var sound = new Howl({
+      //   src: [trackPreview],
+      //   autoplay: true,
+      //   html:true,
+      //   mobileAutoEnable: true
+      // });
+      //
+      //
+      //
+      // sound.play();
 
       //  $albumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
