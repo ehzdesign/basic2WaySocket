@@ -1,0 +1,22 @@
+
+#currently-playing{
+  border-radius: 50%;
+  height: 300%;
+  width: 300%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@-webkit-keyframes rotate {
+  from { -webkit-transform:rotate(0deg); }
+  to { -webkit-transform:rotate(360deg); }
+}
+
+.playing {
+-webkit-transform-origin: 50% 50%;
+-webkit-animation-name: rotate;
+-webkit-animation-duration: 5s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+}
