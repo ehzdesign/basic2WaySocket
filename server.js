@@ -16,9 +16,9 @@ router.use(express.static(path.resolve(__dirname,	 'client')));
 io.on('connection',	 function	(socket)	{
   console.log('a	user	connected');
 
-  // socket.on('button-clicked', function(msg){
-  //   io.emit('button-clicked', msg);
-  // });
+  socket.on('song-requested', function(msg){
+    io.emit('song-requested', msg);
+  });
   // socket.on('button-click', function(msg){
   //   io.emit('button-click', msg);
   // });

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Test Socket</title>
+    <title>controller</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -17,17 +17,16 @@
   <body>
 
   <div class="container">
-
-        <!-- <button id="cool-btn" class="btn btn-primary text-center">CLICK THIS SHIT!!!!</button> -->
+      <p>enter song name</p>
+      <input type="text" id="song-request" class="input-lg">
+      <button id="submit" class="btn btn-info">submit</button>
 
   </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="master.js" charset="utf-8"></script>
-    <script>
-      var socket = new io();
-    </script>
+    <script src="controller.js" charset="utf-8"></script>
+
   </body>
 </html>
