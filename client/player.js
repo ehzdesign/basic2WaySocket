@@ -2,6 +2,10 @@
 var socket = new io();
 
 
+//large bg image when song is playing
+var $bgAlbumCover = $('.bg-album-cover');
+
+
 //display the name of song in `.chosenSong`
 var $chosenSong = $('#chosenSong');
 
@@ -39,9 +43,20 @@ function spotifySearch(query) {
       //  $albumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
        $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
+       console.log(track);
+
+       //get large image and display in bg of app
+       $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
 
     }
   })
 
 
 };
+
+
+//return large image from track object
+function getLargeAlbumCover(song) {
+  var largeImage640 = song.album.images[0].url;
+  return largeImage640;
+}
