@@ -10,7 +10,8 @@ var $bgAlbumCover = $('.bg-album-cover');
 var $chosenSong = $('#chosenSong');
 
 // create new audio
-var audio = new Audio();
+// var audio = new Audio();
+var audio = $('#audio');
 
 //show image of album cover
 var $albumCover = $('#album-cover');
@@ -37,8 +38,9 @@ function spotifySearch(query) {
     },
     success: function(response){
       var track = response.tracks.items[0];
-      audio.src = track.preview_url;
-      audio.play();
+      // audio.src = track.preview_url;
+      audio.attr('src', track);
+      // audio.play();
 
       //  $albumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
