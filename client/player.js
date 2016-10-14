@@ -39,7 +39,8 @@ function spotifySearch(query) {
     success: function(response){
       var track = response.tracks.items[0];
       // audio.src = track.preview_url;
-      audio.attr('src', track);
+      var trackPreview = track.preview_url;
+      audio.attr('src', trackPreview);
       // audio.play();
 
       //  $albumCover.attr('src', track.album.images[1].url)
