@@ -38,7 +38,7 @@ function spotifySearch(query) {
 
       //  $albumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
-       $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')';
+       $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
 
     }
   })
