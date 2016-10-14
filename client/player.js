@@ -9,11 +9,11 @@ var $chosenSong = $('#chosenSong');
 var audio = new Audio();
 
 //show image of album cover
-var $albumCover = $('#currently-playing');
+var $albumCover = $('#album-cover');
 
 socket.on('song-requested', function(msg){
 
-  $chosenSong.text(msg + 'is currently playing');
+  $chosenSong.text(msg + ' is currently playing');
 
   //song to add to player
   var song = msg;
@@ -38,8 +38,7 @@ function spotifySearch(query) {
 
       //  $albumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
-       $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')')
-                  .addClass('playing');
+       $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
 
     }
   })
