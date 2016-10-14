@@ -8,8 +8,10 @@ $(document).ready(function() {
 function getToken(){
 
   $.ajax({
-    url: 'http://opentdb.com/api_token.php?command=request?handleData',
-    type: 'GET'
+    url: 'http://opentdb.com/api_token.php?command=request',
+    type: 'GET',
+    dataType: JSONP,
+    success: handleData
   })
 
 };
