@@ -47,8 +47,8 @@ function spotifySearch(query) {
         src: [trackPreview]
       });
 
-      Howler.mobileAutoEnable = false;
-      
+      Howler.mobileAutoEnable = true;
+
       sound.play();
 
       //  $albumCover.attr('src', track.album.images[1].url)
