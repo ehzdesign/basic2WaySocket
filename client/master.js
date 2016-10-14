@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 //get token from open triva db
 $.ajax({
-  url: 'http://opentdb.com/api_token.php?command=request'
+  url: 'https://opentdb.com/api_token.php?command=request'
 })
 .done(function(data) {
   var token = data.token;
