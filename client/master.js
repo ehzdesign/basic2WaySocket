@@ -10,7 +10,7 @@ function getToken(){
   $.ajax({
     url: 'http://opentdb.com/api_token.php?command=request',
     type: 'GET',
-    dataType: JSONP,
+    dataType: 'JSONP',
     success: handleData
   })
 
