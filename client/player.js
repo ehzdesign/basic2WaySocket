@@ -36,7 +36,9 @@ function spotifySearch(query) {
       audio.src = track.preview_url;
       audio.play();
 
-       $albumCover.attr('src', track.album.images[1].url);
+       $albumCover.attr('src', track.album.images[1].url)
+                  .addClass('playing');
+
     }
   })
 
