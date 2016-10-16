@@ -9,6 +9,8 @@ var $song = $('#song-request');
 var $submitBtn = $('#submit');
 
 
+
+
 //send the song to server after clicking the `$submitBtn`
 $submitBtn.on('click', function(event) {
   event.preventDefault();
@@ -17,8 +19,8 @@ $submitBtn.on('click', function(event) {
   socket.emit('song-requested', $song.val());
   console.log($song.val());
 
-});
+  //send user info
+  // socket.emit('userInfo', $user);
+  console.log(user);
 
-// socket.on('button-click', function(msg){
-//   $('body').css('background', 'grey');
-// });
+});
