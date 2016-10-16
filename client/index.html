@@ -20,18 +20,13 @@
     <![endif]-->
   </head>
   <body>
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <script>
-  function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
-  }
 
-  </script>
+  <!-- sign in -->
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  
+  <!-- sign out link -->
   <a href="#" onclick="signOut();">sign out</a>
+
   <div class="container">
       <p>enter song name</p>
       <input type="text" id="song-request" class="input-lg">
