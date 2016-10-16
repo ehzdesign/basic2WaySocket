@@ -28,7 +28,7 @@ socket.on('song-requested', function(msg){
   //song to add to player
   var song = msg;
 
-  spotifySearch(msg);
+  spotifySearch(song);
 
 });
 
@@ -121,9 +121,11 @@ function getTrackTitle(song) {
   return trackTitle;
 }
 
+//return the html template with userInfo
 function createUserRequest(userInfo) {
   var request = {};
   request.image = $('<div></div', {'class': 'request__profile-image'});
   request.image.css('background-image','url(' + userInfo.image + ')');
+  // request.image.attr('data-track-name', currentSongTitle);
   return request;
 }
