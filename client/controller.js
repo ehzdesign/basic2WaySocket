@@ -21,7 +21,7 @@ $submitBtn.on('click', function(event) {
 
   //send user info
   // socket.emit('userInfo', $user);
-  if(user){
+  if($.isEmptyObject(user) === false){
     console.log(user);
   }
 
