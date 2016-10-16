@@ -23,6 +23,7 @@
   <div class="overlay"></div>
   <!-- background of large image of currently playing album -->
   <div class="bg-album-cover"></div>
+  <div class="bg-album-cover bg-album-cover--next"></div>
 </div>
 <!-- end of -->
 
@@ -43,10 +44,13 @@
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <section id="song">
-          <div id="album-cover"></div>
-          <!-- <h1 id="chosenSong">no song chosen</h1> -->
-        </section>
+        <div id="current-song">
+          <div class="album-cover"></div>
+          <div class="song-info">
+            <p class="song-title"></p>
+            <p class="song-artist"></p>
+          </div>
+        </div>
       </div>
     </div>
 

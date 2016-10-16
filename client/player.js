@@ -6,19 +6,20 @@ var socket = new io();
 var $bgAlbumCover = $('.bg-album-cover');
 
 
-//display the name of song in `.chosenSong`
-var $chosenSong = $('#chosenSong');
 
 // create new audio
 var audio = new Audio();
 // var audio = $('#audio');
 
 //show image of album cover
-var $albumCover = $('#album-cover');
+var $currentAlbumCover = $('#current-song .album-cover');
+
+//display the name of current song being played
+var $currentSongTitle = $('#current-song .song-title');
 
 socket.on('song-requested', function(msg){
 
-  $chosenSong.text(msg + ' is currently playing');
+  // $chosenSong.text(msg + ' is currently playing');
 
   //song to add to player
   var song = msg;
@@ -38,6 +39,7 @@ function spotifySearch(query) {
     },
     success: function(response){
       var track = response.tracks.items[0];
+      console.log(track);
       audio.src = track.preview_url;
       var trackPreview = track.preview_url;
       // audio.attr('src', trackPreview);
@@ -58,13 +60,17 @@ function spotifySearch(query) {
       //
       // sound.play();
 
-      //  $albumCover.attr('src', track.album.images[1].url)
+      //  $currentAlbumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
-      $albumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
+      $currentAlbumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
       console.log(track);
 
       //get large image and display in bg of app
       $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
+
+      //display the title of the song
+      $currentSongTitle.text(getTrackTitle(track));
+
 
     }
   })
@@ -77,4 +83,10 @@ function spotifySearch(query) {
 function getLargeAlbumCover(song) {
   var largeImage640 = song.album.images[0].url;
   return largeImage640;
+}
+
+//return album title
+function getTrackTitle(song) {
+  var trackTitle = song.name;
+  return trackTitle;
 }
