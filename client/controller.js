@@ -21,6 +21,8 @@ $submitBtn.on('click', function(event) {
 
   //send user info
   // socket.emit('userInfo', $user);
-  console.log(user);
+  if(user){
+    console.log(user);
+  }
 
 });
