@@ -81,3 +81,13 @@ header .logo{
 #current-song .song-title{
 
 }
+
+.request__profile-image{
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  position: relative;
+  background-size: cover;
+  z-index: 20;
+  background-position: center;
+}

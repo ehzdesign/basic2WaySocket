@@ -5,7 +5,11 @@ var socket = new io();
 //large bg image when song is playing
 var $bgAlbumCover = $('.bg-album-cover');
 
+//user request div
+var $userRequestSection = $('#user-requests');
 
+//collection of all users and their requests
+var userRequests = [];
 
 // create new audio
 var audio = new Audio();
@@ -27,6 +31,31 @@ socket.on('song-requested', function(msg){
   spotifySearch(msg);
 
 });
+
+
+socket.on('userInfo', function(msg){
+  //do cool things with user information
+  console.log(msg);
+
+  //store html template for a user request
+  var request = createUserRequest(msg);
+
+  //add to the user request array
+  userRequests.push(request);
+
+  // get the most recently added request to user Requests
+  var recentRequest = $(userRequests).get(-1);
+
+
+  //display the user that made mos recent song request
+  $userRequestSection.append(recentRequest.image);
+
+
+
+});
+
+
+
 
 
 function spotifySearch(query) {
@@ -72,6 +101,7 @@ function spotifySearch(query) {
       $currentSongTitle.text(getTrackTitle(track));
 
 
+
     }
   })
 
@@ -89,4 +119,11 @@ function getLargeAlbumCover(song) {
 function getTrackTitle(song) {
   var trackTitle = song.name;
   return trackTitle;
+}
+
+function createUserRequest(userInfo) {
+  var request = {};
+  request.image = $('<div></div', {'class': 'request__profile-image'});
+  request.image.css('background-image','url(' + userInfo.image + ')');
+  return request;
 }

@@ -19,10 +19,15 @@ $submitBtn.on('click', function(event) {
   socket.emit('song-requested', $song.val());
   console.log($song.val());
 
-  //send user info
-  // socket.emit('userInfo', $user);
+
+  //check if user name and image has been set
   if($.isEmptyObject(user) === false){
-    console.log(user);
+
+    //store the exact value the user searched for
+    user.songTyped = $song.val();
+
+    //send user info to server
+    socket.emit('userInfo', user);
   }
 
 });

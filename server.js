@@ -16,13 +16,15 @@ router.use(express.static(path.resolve(__dirname,	 'client')));
 io.on('connection',	 function	(socket)	{
   console.log('a	user	connected');
 
+  // when user requests a song
   socket.on('song-requested', function(msg){
     io.emit('song-requested', msg);
   });
-  // socket.on('button-click', function(msg){
-  //   io.emit('button-click', msg);
-  // });
 
+  //when userInfo from google is sent
+  socket.on('userInfo', function(msg){
+    io.emit('userInfo', msg);
+  });
 
   socket.on('disconnect',	 function	 ()	{
     console.log('user	 disconnected');
