@@ -21,10 +21,10 @@ io.on('connection',	 function	(socket)	{
     io.emit('song-requested', msg);
   });
 
-  //when userInfo from google is sent
-  socket.on('userInfo', function(msg){
-    io.emit('userInfo', msg);
-  });
+  // //when userInfo from google is sent
+  // socket.on('userInfo', function(msg){
+  //   io.emit('userInfo', msg);
+  // });
 
   socket.on('disconnect',	 function	 ()	{
     console.log('user	 disconnected');

@@ -6,10 +6,10 @@ var socket = new io();
 var $bgAlbumCover = $('.bg-album-cover');
 
 //user request div
-var $userRequestSection = $('#user-requests');
+var $playlistHTML = $('#playlist');
 
 //collection of all users and their requests
-var userRequests = [];
+var playlist = [];
 
 // create new audio
 var audio = new Audio();
@@ -21,45 +21,61 @@ var $currentAlbumCover = $('#current-song .album-cover');
 //display the name of current song being played
 var $currentSongTitle = $('#current-song .song-title');
 
+var trackFound;
+
+
+//get the request sent by user
 socket.on('song-requested', function(msg){
 
-  // $chosenSong.text(msg + ' is currently playing');
 
-  //song to add to player
-  var song = msg;
+  //get the song that was typed by the user
+  var song = msg.songTyped;
+  console.log(song);
 
-  spotifySearch(song);
+  // search the song with spotify api and add to the request
+  spotifySearch(song, msg);
 
-});
-
-
-socket.on('userInfo', function(msg){
-  //do cool things with user information
-  console.log(msg);
-
-  //store html template for a user request
-  var request = createUserRequest(msg);
-
-  //add to the user request array
-  userRequests.push(request);
-
-  // get the most recently added request to user Requests
-  var recentRequest = $(userRequests).get(-1);
+    console.log(playlist);
 
 
-  //display the user that made mos recent song request
-  $userRequestSection.append(recentRequest.image);
+
+
+
+
 
 
 
 });
 
 
+// socket.on('userInfo', function(msg){
+//   //do cool things with user information
+//   console.log(msg);
+//
+//   //store html template for a user request
+//   var request = createUserRequest(msg);
+//
+//   //add to the user request array
+//   playlist.push(request);
+//
+//   // get the most recently added request to user Requests
+//   var recentRequest = $(playlist).get(-1);
+//
+//
+//   //display the user that made mos recent song request
+//   $userRequestSection.append(recentRequest.image);
+//
+//
+//
+// });
 
 
 
-function spotifySearch(query) {
+
+
+function spotifySearch(query, msg) {
   //create ajax call
+  console.log(query);
   $.ajax({
     url: 'https://api.spotify.com/v1/search',
     data: {
@@ -67,16 +83,27 @@ function spotifySearch(query) {
       type: 'track'
     },
     success: function(response){
-      var track = response.tracks.items[0];
-      console.log(track);
-      audio.src = track.preview_url;
-      var trackPreview = track.preview_url;
-      // audio.attr('src', trackPreview);
-      audio.play();
-      //
-      //
 
-      console.log(trackPreview);
+
+      var request = msg;
+      //get the track information for the song searched by user
+      trackFound = getTrackInfo(response);
+
+      //store track information in the request object
+      request.track = trackFound;
+
+      //push the request to the playlist
+       playlist.push(request);
+
+      console.log(playlist);
+      console.log(request);
+
+      $playlistHTML.append(drawRequest(request));
+
+
+
+
+      // console.log(trackPreview);
 
       // var sound = new Howl({
       //   src: [trackPreview],
@@ -91,14 +118,14 @@ function spotifySearch(query) {
 
       //  $currentAlbumCover.attr('src', track.album.images[1].url)
       //             .addClass('playing');
-      $currentAlbumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
-      console.log(track);
-
-      //get large image and display in bg of app
-      $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
-
-      //display the title of the song
-      $currentSongTitle.text(getTrackTitle(track));
+      // $currentAlbumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
+      // console.log(track);
+      //
+      // //get large image and display in bg of app
+      // $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
+      //
+      // //display the title of the song
+      // $currentSongTitle.text(getTrackTitle(track));
 
 
 
@@ -106,26 +133,63 @@ function spotifySearch(query) {
   })
 
 
+
 };
 
 
-//return large image from track object
-function getLargeAlbumCover(song) {
-  var largeImage640 = song.album.images[0].url;
-  return largeImage640;
+function getTrackInfo(response){
+  //gonna store all  the track info
+  var track = {};
+
+  // first track brought back by spotify
+  var firstTrackFound = response.tracks.items[0];
+
+  // console.log(firstTrackFound);
+
+  //add the preview track mp3 to track object
+  track.audio = firstTrackFound.preview_url;
+
+  //add the album image to track object
+  track.albumImage = firstTrackFound.album.images[1].url;
+
+  //add the track name to track object
+  track.title = firstTrackFound.name;
+
+  //get artists names and store as array
+  var trackArtists = [];
+  // console.log(firstTrackFound);
+
+  // for all the artists push name to `artistsArray`
+  for (var artist in firstTrackFound.artists) {
+
+    trackArtists.push(firstTrackFound.artists[artist].name);
+  }
+
+  //store in requested song object as an array of contributing artists
+  track.artistsArray = trackArtists;
+
+  // store in requested song object as a comma seperated string
+  track.artistsString = track.artistsArray.join(', ');
+
+
+  return track;
 }
 
-//return album title
-function getTrackTitle(song) {
-  var trackTitle = song.name;
-  return trackTitle;
-}
+
+//create html element with all requested song information incl- user info and track info booyah!!!!
+function drawRequest(obj){
+  var request = $('<div></div>', {'class' : 'request'});
+  request.css('background-image', 'url(' + obj.image + ')');
+  request.attr('data-track-title', obj.track.title);
+  request.attr('data-username', obj.name);
+  return request;
+};
 
 //return the html template with userInfo
-function createUserRequest(userInfo) {
-  var request = {};
-  request.image = $('<div></div', {'class': 'request__profile-image'});
-  request.image.css('background-image','url(' + userInfo.image + ')');
-  // request.image.attr('data-track-name', currentSongTitle);
-  return request;
-}
+// function createUserRequest(userInfo) {
+//   var request = {};
+//   request.image = $('<div></div', {'class': 'request__profile-image'});
+//   request.image.css('background-image','url(' + userInfo.image + ')');
+//   // request.image.attr('data-track-name', currentSongTitle);
+//   return request;
+// }
