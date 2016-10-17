@@ -34,7 +34,7 @@ body{
 
   /*background: -webkit-linear-gradient(45deg, rgba(164,33,160,0.6) 0%, rgba(68,60,191,0.6) 100%); */
   /*background: linear-gradient(45deg, rgba(164,33,160,0.6) 0%, rgba(68,60,191,0.6) 100%); */
-  background: linear-gradient(45deg, rgba(125, 75, 219, 0.6) 0%, rgba(236, 88, 231, 0.6) 100%); /* w3c */
+  background: linear-gradient(45deg, rgba(125, 75, 219, 0.6) 0%, rgba(236, 88, 231, 0.4) 100%); /* w3c */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -50,7 +50,8 @@ body{
 }*/
 
 /*backgroud album cover*/
-.bg-album-cover{
+.bg-album-cover,
+.bg-album-cover--next{
   position: absolute;
   width: 100%;
   height: 100%;
