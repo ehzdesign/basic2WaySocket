@@ -24,13 +24,16 @@ var $currentAlbumCover = $('#current-song .album-cover');
 //display the name of current song being played
 var $currentSongTitle = $('#current-song .song-title');
 
+//display the artist name of the currently playing song
+var $currentSongArtist = $('.song-artist');
+
 var trackFound;
 
 //create new audio object
 var audio = new Audio();
 
 //keep track of current track
-var currentTrack = 0;
+var currentTrackIndex = 0;
 
 var isPlaying;
 
@@ -60,26 +63,7 @@ socket.on('song-requested', function(msg){
 });
 
 
-// socket.on('userInfo', function(msg){
-//   //do cool things with user information
-//   console.log(msg);
-//
-//   //store html template for a user request
-//   var request = createUserRequest(msg);
-//
-//   //add to the user request array
-//   playlist.push(request);
-//
-//   // get the most recently added request to user Requests
-//   var recentRequest = $(playlist).get(-1);
-//
-//
-//   //display the user that made mos recent song request
-//   $userRequestSection.append(recentRequest.image);
-//
-//
-//
-// });
+
 
 
 
@@ -112,17 +96,18 @@ function spotifySearch(query, msg) {
 
       $playlistHTML.append(drawRequest(request));
 
-
-      if(playlist.length > 0 && isPlaying === undefined){
+      console.log(isPlaying);
+      if(playlist.length == 1 && isPlaying === undefined){
         // console.log(playlist[currentTrack].track.audio);
         // console.log(isPlaying);
         // audio.src = playlist[currentTrack].track.audio;
         // audio.play();
+
         playSong();
         currentTrackInfo();
-        nextTrackBg();
-        isPlaying = true;
-        console.log(isPlaying);
+        // nextTrackBg();
+        // isPlaying = true;
+        // console.log(isPlaying);
 
       }
 
@@ -209,15 +194,11 @@ function drawRequest(obj){
 };
 
 function playSong() {
-  //check if playlist is empty
-  if(playlist.length > 0 && currentTrack != playlist.length){
-    audio.src = playlist[currentTrack].track.audio;
-    audio.play();
-    currentTrackInfo();
 
-  }else{
-    console.log('no more songs to play');
-  }
+  let currentTrack = playlist[0];
+    audio.src = currentTrack.track.audio;
+    audio.play();
+    console.log('first song is playing');
 
 };
 
@@ -225,32 +206,32 @@ $(audio).on('ended', function(event) {
   event.preventDefault();
   /* Act on the event */
   console.log('song has ended');
+  console.log('contents of playlist: ' + playlist);
   removeRequest();
-  currentTrack++;
-  playSong();
+
 });
 
+//show the currently playing track album info
 function currentTrackInfo () {
-  // var albumInfo;
-  //get album art
-  console.log('display current track');
-    $currentAlbumCover.css('background-image','url( ' + playlist[currentTrack].track.albumImage + ')');
-    $bgAlbumCover.css('background-image', 'url('+ playlist[currentTrack].track.albumImage +')');
 
+    var currentTrack = playlist[0];
+    console.log(currentTrack);
+    console.log('display current track info');
+
+    $currentAlbumCover.css('background-image','url( ' + currentTrack.track.albumImage + ')');
+    $currentSongTitle.text(currentTrack.track.title);
+    $currentSongArtist.text(currentTrack.track.artistsString);
+    $bgAlbumCover.css('background-image', 'url('+ currentTrack.track.albumImage +')');
+    $playlistHTML.find('.request:eq(0)').addClass('current-request');
 
 }
 
 //remove the request from playlist
 function removeRequest () {
-  $playlistHTML.find('.request:eq('+ currentTrack +')').fadeOut('slow', function() {
+
+  $playlistHTML.find('.request:eq(0)').fadeOut('slow', function() {
     $(this).remove();
   });
-}
-
-function nextTrackBg () {
-  if(playlist[currentTrack + 1]){
-    console.log('show other album');
-    $bgAlbumCoverNext.css('background-image', 'url('+ playlist[currentTrack + 1].track.albumImage +')');
-
-  }
+  playlist.shift();
+  console.log(playlist);
 }

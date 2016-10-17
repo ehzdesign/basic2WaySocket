@@ -83,7 +83,8 @@ header .logo{
   margin: 0 auto;
   text-align: center;
   text-transform: lowercase;
-  margin-bottom: 20rem;
+  margin-bottom: 5rem;
+  letter-spacing: .4em;
 }
 
 #current-song .album-cover{
@@ -177,4 +178,8 @@ header .logo{
   /*-webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transition:         all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);*/
   transition: all .3s ease;
+}
+
+.current-request {
+  border: 2px solid white;
 }
