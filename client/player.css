@@ -4,8 +4,10 @@
 body{
   /*background-color: #2d2d2d;*/
   /*background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");*/
-  color: #2d2d2d;
+  /*color: #2d2d2d;
+
   /*font-family: 'Josefin Sans', sans-serif;*/
+  color: white;
   font-family: 'futura';
   position: relative;
   height:100vh;
@@ -29,12 +31,23 @@ body{
 
 /*overlay for bg*/
 .overlay {
-  background: rgba(255, 255, 255, 0.6);
+
+  /*background: -webkit-linear-gradient(45deg, rgba(164,33,160,0.6) 0%, rgba(68,60,191,0.6) 100%); */
+  /*background: linear-gradient(45deg, rgba(164,33,160,0.6) 0%, rgba(68,60,191,0.6) 100%); */
+  background: linear-gradient(45deg, rgba(125, 75, 219, 0.6) 0%, rgba(236, 88, 231, 0.6) 100%); /* w3c */
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 5;
+  /*background-size: 400% 400%;
+  animation: animateBG 30s ease infinite;*/
 }
+
+/*@keyframes animateBG {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}*/
 
 /*backgroud album cover*/
 .bg-album-cover{
@@ -47,6 +60,11 @@ body{
   background-size: cover;
   filter: blur(5px);
   z-index: 4;
+  opacity: 0.6;
+}
+
+.bg-album-cover--next {
+  right: 0;
 }
 
 /*header styles*/
@@ -64,6 +82,7 @@ header .logo{
   margin: 0 auto;
   text-align: center;
   text-transform: lowercase;
+  margin-bottom: 20rem;
 }
 
 #current-song .album-cover{
@@ -75,7 +94,7 @@ header .logo{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  filter: drop-shadow(4px 10px 10px grey);
+  filter: drop-shadow(4px 10px 10px rgba(5,0,0,0.7));
 }
 
 #current-song .song-title{
@@ -143,8 +162,10 @@ header .logo{
 .request::before,
 .request::after{
   position: relative;
-  color: white;
-  background-color: #a64ee8;
+  /*color: white;*/
+  color: #a64ee8;
+  /*background-color: #a64ee8;*/
+  background-color: white;
   padding: 0.6em 2em;
   border-radius: 25px;
   white-space: nowrap;

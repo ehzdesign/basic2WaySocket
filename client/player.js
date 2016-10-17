@@ -5,6 +5,9 @@ var socket = new io();
 //large bg image when song is playing
 var $bgAlbumCover = $('.bg-album-cover');
 
+//next song background album cover
+var $bgAlbumCoverNext = $('.bg-album-cover--next');
+
 //user request div
 var $playlistHTML = $('#playlist');
 
@@ -116,6 +119,8 @@ function spotifySearch(query, msg) {
         // audio.src = playlist[currentTrack].track.audio;
         // audio.play();
         playSong();
+        currentTrackInfo();
+        nextTrackBg();
         isPlaying = true;
         console.log(isPlaying);
 
@@ -208,6 +213,7 @@ function playSong() {
   if(playlist.length > 0 && currentTrack != playlist.length){
     audio.src = playlist[currentTrack].track.audio;
     audio.play();
+    currentTrackInfo();
 
   }else{
     console.log('no more songs to play');
@@ -219,6 +225,32 @@ $(audio).on('ended', function(event) {
   event.preventDefault();
   /* Act on the event */
   console.log('song has ended');
+  removeRequest();
   currentTrack++;
   playSong();
 });
+
+function currentTrackInfo () {
+  // var albumInfo;
+  //get album art
+  console.log('display current track');
+    $currentAlbumCover.css('background-image','url( ' + playlist[currentTrack].track.albumImage + ')');
+    $bgAlbumCover.css('background-image', 'url('+ playlist[currentTrack].track.albumImage +')');
+
+
+}
+
+//remove the request from playlist
+function removeRequest () {
+  $playlistHTML.find('.request:eq('+ currentTrack +')').fadeOut('slow', function() {
+    $(this).remove();
+  });
+}
+
+function nextTrackBg () {
+  if(playlist[currentTrack + 1]){
+    console.log('show other album');
+    $bgAlbumCoverNext.css('background-image', 'url('+ playlist[currentTrack + 1].track.albumImage +')');
+
+  }
+}
