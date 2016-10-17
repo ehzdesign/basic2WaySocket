@@ -23,6 +23,15 @@ var $currentSongTitle = $('#current-song .song-title');
 
 var trackFound;
 
+//create new audio object
+var audio = new Audio();
+
+//keep track of current track
+var currentTrack = 0;
+
+var isPlaying;
+
+
 
 //get the request sent by user
 socket.on('song-requested', function(msg){
@@ -38,7 +47,7 @@ socket.on('song-requested', function(msg){
     console.log(playlist);
 
 
-
+    // playSong();
 
 
 
@@ -101,7 +110,16 @@ function spotifySearch(query, msg) {
       $playlistHTML.append(drawRequest(request));
 
 
+      if(playlist.length > 0 && isPlaying === undefined){
+        // console.log(playlist[currentTrack].track.audio);
+        // console.log(isPlaying);
+        // audio.src = playlist[currentTrack].track.audio;
+        // audio.play();
+        playSong();
+        isPlaying = true;
+        console.log(isPlaying);
 
+      }
 
       // console.log(trackPreview);
 
@@ -185,11 +203,22 @@ function drawRequest(obj){
   return request;
 };
 
-//return the html template with userInfo
-// function createUserRequest(userInfo) {
-//   var request = {};
-//   request.image = $('<div></div', {'class': 'request__profile-image'});
-//   request.image.css('background-image','url(' + userInfo.image + ')');
-//   // request.image.attr('data-track-name', currentSongTitle);
-//   return request;
-// }
+function playSong() {
+  //check if playlist is empty
+  if(playlist.length > 0 && currentTrack != playlist.length){
+    audio.src = playlist[currentTrack].track.audio;
+    audio.play();
+
+  }else{
+    console.log('no more songs to play');
+  }
+
+};
+
+$(audio).on('ended', function(event) {
+  event.preventDefault();
+  /* Act on the event */
+  console.log('song has ended');
+  currentTrack++;
+  playSong();
+});
