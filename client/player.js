@@ -97,7 +97,8 @@ function spotifySearch(query, msg) {
       $playlistHTML.append(drawRequest(request));
 
       console.log(isPlaying);
-      if(playlist.length == 1 && isPlaying === undefined){
+      // console.log(playlist.length);
+      if(playlist.length == 1 && isPlaying === undefined ){
         // console.log(playlist[currentTrack].track.audio);
         // console.log(isPlaying);
         // audio.src = playlist[currentTrack].track.audio;
@@ -106,9 +107,13 @@ function spotifySearch(query, msg) {
         playSong();
         currentTrackInfo();
         // nextTrackBg();
-        // isPlaying = true;
+        isPlaying = true;
         // console.log(isPlaying);
 
+      }
+
+      if(playlist[1]){
+        nextTrackInfo();
       }
 
       // console.log(trackPreview);
@@ -199,6 +204,9 @@ function playSong() {
     audio.src = currentTrack.track.audio;
     audio.play();
     console.log('first song is playing');
+    isPlaying = true;
+    nextTrackInfo();
+
 
 };
 
@@ -208,7 +216,13 @@ $(audio).on('ended', function(event) {
   console.log('song has ended');
   console.log('contents of playlist: ' + playlist);
   removeRequest();
-
+  if(playlist.length == 0) {
+    isPlaying = undefined;
+  }else{
+    isPlaying = false;
+    playSong();
+    currentTrackInfo();
+  }
 });
 
 //show the currently playing track album info
@@ -222,7 +236,10 @@ function currentTrackInfo () {
     $currentSongTitle.text(currentTrack.track.title);
     $currentSongArtist.text(currentTrack.track.artistsString);
     $bgAlbumCover.css('background-image', 'url('+ currentTrack.track.albumImage +')');
+    console.log('add the border');
     $playlistHTML.find('.request:eq(0)').addClass('current-request');
+
+
 
 }
 
@@ -231,7 +248,18 @@ function removeRequest () {
 
   $playlistHTML.find('.request:eq(0)').fadeOut('slow', function() {
     $(this).remove();
+    $playlistHTML.find('.request:eq(0)').addClass('current-request');
   });
   playlist.shift();
   console.log(playlist);
+}
+
+function nextTrackInfo () {
+  if(playlist[1]){
+    let nextTrack = playlist[1];
+    $bgAlbumCoverNext.css('background-image', 'url('+ nextTrack.track.albumImage +')');
+  }
+  if(playlist.length == 1){
+    $bgAlbumCoverNext.css('background-image', 'none');
+  }
 }
