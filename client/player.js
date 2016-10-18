@@ -53,13 +53,6 @@ socket.on('song-requested', function(msg){
     console.log(playlist);
 
 
-    // playSong();
-
-
-
-
-
-
 });
 
 
@@ -116,32 +109,6 @@ function spotifySearch(query, msg) {
         nextTrackInfo();
       }
 
-      // console.log(trackPreview);
-
-      // var sound = new Howl({
-      //   src: [trackPreview],
-      //   autoplay: true,
-      //   html:true,
-      //   mobileAutoEnable: true
-      // });
-      //
-      //
-      //
-      // sound.play();
-
-      //  $currentAlbumCover.attr('src', track.album.images[1].url)
-      //             .addClass('playing');
-      // $currentAlbumCover.css('background-image', 'url(' + track.album.images[1].url + ')');
-      // console.log(track);
-      //
-      // //get large image and display in bg of app
-      // $bgAlbumCover.css('background-image', 'url('+ getLargeAlbumCover(track) +')');
-      //
-      // //display the title of the song
-      // $currentSongTitle.text(getTrackTitle(track));
-
-
-
     }
   })
 
@@ -157,7 +124,7 @@ function getTrackInfo(response){
   // first track brought back by spotify
   var firstTrackFound = response.tracks.items[0];
 
-  // console.log(firstTrackFound);
+
 
   //add the preview track mp3 to track object
   track.audio = firstTrackFound.preview_url;
@@ -170,7 +137,7 @@ function getTrackInfo(response){
 
   //get artists names and store as array
   var trackArtists = [];
-  // console.log(firstTrackFound);
+
 
   // for all the artists push name to `artistsArray`
   for (var artist in firstTrackFound.artists) {

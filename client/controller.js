@@ -21,7 +21,7 @@ $submitBtn.on('click', function(event) {
 
     //store the exact value the user searched for
     user.songTyped = $song.val();
-
+    $song.val();
     //send user info to server
     socket.emit('song-requested', user);
   }
