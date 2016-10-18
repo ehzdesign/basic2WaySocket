@@ -1,17 +1,20 @@
 /*@import url('https://fonts.googleapis.com/css?family=osefin+Sans:300,400');*/
-
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:600,500');
 
 body{
   /*background-color: #2d2d2d;*/
   /*background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");*/
   /*color: #2d2d2d;
 
+
+
   /*font-family: 'Josefin Sans', sans-serif;*/
   color: white;
-  font-family: 'futura';
+  font-family: 'Josefin Sans', sans-serif;
   position: relative;
   height:100vh;
   width: 100vw;
+    -webkit-font-smoothing: antialiased;
 }
 
 
@@ -34,20 +37,16 @@ body{
 
   /*background: -webkit-linear-gradient(45deg, rgba(164,33,160,0.6) 0%, rgba(68,60,191,0.6) 100%); */
   /*background: linear-gradient(45deg, rgba(164,33,160,0.6) 0%, rgba(68,60,191,0.6) 100%); */
-  background: linear-gradient(45deg, rgba(125, 75, 219, 0.6) 0%, rgba(236, 88, 231, 0.4) 100%); /* w3c */
+  background: linear-gradient(45deg, rgba(125, 75, 219, 0.6) 0%, rgba(236, 88, 231, 0.4) 100%);
+  /*background: linear-gradient(45deg, rgba(226, 38, 101, 0.6) 0%, rgba(99, 39, 154, 0.6)100%); */
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 5;
-  /*background-size: 400% 400%;
-  animation: animateBG 30s ease infinite;*/
+
 }
 
-/*@keyframes animateBG {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}*/
+
 
 /*backgroud album cover*/
 .bg-album-cover,
@@ -61,12 +60,16 @@ body{
   background-size: cover;
   filter: blur(5px);
   z-index: 4;
-  opacity: 0.6;
+  transition: background 0.5s linear;
 }
+
+
 
 .bg-album-cover--next {
   right: 0;
 }
+
+
 
 /*header styles*/
 header .logo{
@@ -83,7 +86,7 @@ header .logo{
   margin: 0 auto;
   text-align: center;
   text-transform: lowercase;
-  margin-bottom: 5rem;
+  margin-bottom: 10rem;
   letter-spacing: .4em;
 }
 
@@ -97,12 +100,23 @@ header .logo{
   background-repeat: no-repeat;
   background-position: center;
   filter: drop-shadow(4px 10px 10px rgba(5,0,0,0.7));
+  transition: background .5s ease;
 }
 
 #current-song .song-title{
-
+  font-weight: 600;
+  transition: background .5s ease;
 }
 
+#current-song .song-artist {
+  font-weight: 500;
+  font-size: .7em;
+  transition: background .5s ease;
+}
+
+.song-info{
+  text-transform: uppercase;
+}
 /*playlist styles*/
 
 #playlist{
@@ -110,8 +124,9 @@ header .logo{
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-
+  align-items: center;
   justify-content: center;
+  min-height: 5em;
 }
 
 .request{
@@ -133,6 +148,9 @@ header .logo{
   z-index: 20;
   background-position: center;
   margin-right: 2em;
+  opacity: 0.4;
+
+  transition: all .3s ease;
 }
 
 .request:hover.request::before,
@@ -182,4 +200,11 @@ header .logo{
 
 .current-request {
   border: 2px solid white;
+  width: 3.5em;
+  height: 3.5em;
+  opacity: 1;
+}
+
+.current-request:hover.current-request::after{
+  top: 40px;
 }

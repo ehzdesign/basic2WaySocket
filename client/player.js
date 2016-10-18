@@ -198,7 +198,7 @@ function currentTrackInfo () {
     var currentTrack = playlist[0];
     console.log(currentTrack);
     console.log('display current track info');
-
+    // $bgAlbumCover.removeClass('make-alpha6');
     $currentAlbumCover.css('background-image','url( ' + currentTrack.track.albumImage + ')');
     $currentSongTitle.text(currentTrack.track.title);
     $currentSongArtist.text(currentTrack.track.artistsString);
