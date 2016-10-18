@@ -18,12 +18,15 @@ $submitBtn.on('click', function(event) {
 
   //check if user name and image has been set
   if($.isEmptyObject(user) === false){
+    var songRequested = $song.val();
+    if(songRequested != ''){
+      //store the exact value the user searched for
+      user.songTyped = songRequested;
+      $song.val('');
+      //send user info to server
+      socket.emit('song-requested', user);
 
-    //store the exact value the user searched for
-    user.songTyped = $song.val();
-    $song.val();
-    //send user info to server
-    socket.emit('song-requested', user);
+    }
   }
 
 
